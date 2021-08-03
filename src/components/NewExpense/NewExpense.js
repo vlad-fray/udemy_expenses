@@ -1,7 +1,9 @@
 import './NewExpense.css';
 import ExpenseForm from './ExpenseForm';
+import { useState } from 'react';
 
 function NewExpense(props) {
+	const [isActiveForm, setIsActiveForm] = useState(false);
 	const saveExpenseDataHandler = (enteredExpenseData) => {
 		const expenseData = {
 			...enteredExpenseData,
@@ -9,9 +11,24 @@ function NewExpense(props) {
 		};
 		props.addExpenseHandler(expenseData);
 	};
+
+	const toggleIsActiveHandler = () => {
+		setIsActiveForm((prev) => !prev);
+	};
+
 	return (
 		<div className='new-expense'>
-			<ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
+			{!isActiveForm && (
+				<ExpenseForm
+					onChangeIsActive={toggleIsActiveHandler}
+					onSaveExpenseData={saveExpenseDataHandler}
+				/>
+			)}
+			{isActiveForm && (
+				<button type='button' onClick={toggleIsActiveHandler}>
+					Add New Expense
+				</button>
+			)}
 		</div>
 	);
 }

@@ -20,7 +20,7 @@ function ExpenseForm(props) {
 
 		const expenseData = {
 			title: setInput.enteredTitle,
-			amount: setInput.enteredAmount,
+			amount: +setInput.enteredAmount,
 			date: new Date(setInput.enteredDate),
 		};
 		props.onSaveExpenseData(expenseData);
@@ -34,6 +34,10 @@ function ExpenseForm(props) {
 			enteredAmount: '',
 			enteredDate: '',
 		}));
+	};
+
+	const toggleIsActiveHandler = () => {
+		props.onChangeIsActive();
 	};
 
 	return (
@@ -63,14 +67,17 @@ function ExpenseForm(props) {
 					<label>Date</label>
 					<input
 						type='date'
-						min='2021-01-01'
-						max='2023-12-31'
+						min='2019-01-01'
+						max='2022-12-31'
 						name='enteredDate'
 						onChange={userInputHadler}
 						value={setInput.enteredDate}
 					/>
 				</div>
 				<div className='new-expense__actions'>
+					<button type='button' onClick={toggleIsActiveHandler}>
+						Cancel
+					</button>
 					<button type='submit'>Add Expense</button>
 				</div>
 			</div>
